@@ -12,8 +12,6 @@ export async function getCabin(id) {
     .eq("id", id)
     .single();
 
-  // For testing
-  // await new Promise((res) => setTimeout(res, 2000));
 
   if (error) {
     console.error(error);
@@ -43,8 +41,6 @@ export const getCabins = async function () {
     .select("id, name, maxCapacity, regularPrice, discount, image")
     .order("name");
 
-  // For testing
-  // await new Promise((res) => setTimeout(res, 2000));
 
   if (error) {
     console.error(error);
@@ -63,7 +59,6 @@ export async function getGuest(email) {
     .eq("email", email)
     
 
-  // No error here! We handle the possibility of no guest in the sign in callback
   return data;
 }
 
@@ -107,7 +102,6 @@ export async function getBookedDatesByCabinId(cabinId) {
   today.setUTCHours(0, 0, 0, 0);
   today = today.toISOString();
 
-  // Getting all bookings
   const { data, error } = await supabase
     .from("bookings")
     .select("*")
@@ -119,7 +113,6 @@ export async function getBookedDatesByCabinId(cabinId) {
     throw new Error("Bookings could not get loaded");
   }
 
-  // Converting to actual dates to be displayed in the date picker
   const bookedDates = data
     .map((booking) => {
       return eachDayOfInterval({
